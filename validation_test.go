@@ -215,3 +215,22 @@ func TestRegex(t *testing.T) {
 
 	testWithInput[myString](t, inputs)
 }
+
+func TestSliceValidator(t *testing.T) {
+
+	inputs := []testcase[[]uint32]{
+		{
+			name:  "valid values slices",
+			f:     SliceValidator[uint32](Min[uint32](7)),
+			input: []uint32{9, 10, 18, 14},
+		},
+		{
+			name:        "invalid value slice - 1",
+			f:           SliceValidator[uint32](Min[uint32](7)),
+			input:       []uint32{9, 10, 6, 14},
+			errExpected: true,
+		},
+	}
+
+	testWithInput[[]uint32](t, inputs)
+}

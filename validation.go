@@ -110,3 +110,15 @@ func Regex[T ~string](pattern string) func(T) error {
 		return nil
 	}
 }
+
+// SliceValidator allows using a simple type validator with a slice
+func SliceValidator[T any](f func(T) error) func([]T) error {
+	return func(values []T) error {
+		for i, v := range values {
+			if err := f(v); err != nil {
+				return fmt.Errorf("value at slice[%d] : %w", i, err)
+			}
+		}
+		return nil
+	}
+}
