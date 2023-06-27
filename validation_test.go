@@ -13,7 +13,7 @@ type testcase[T any] struct {
 	errExpected bool
 }
 
-func test_with_input[T any](t *testing.T, tcases []testcase[T]) {
+func testWithInput[T any](t *testing.T, tcases []testcase[T]) {
 	r := require.New(t)
 	for _, tc := range tcases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -48,7 +48,7 @@ func TestMin(t *testing.T) {
 		},
 	}
 
-	test_with_input[int](t, inputs)
+	testWithInput[int](t, inputs)
 }
 
 func TestMax(t *testing.T) {
@@ -72,7 +72,7 @@ func TestMax(t *testing.T) {
 		},
 	}
 
-	test_with_input[float64](t, inputs)
+	testWithInput[float64](t, inputs)
 }
 
 func TestRange(t *testing.T) {
@@ -107,7 +107,7 @@ func TestRange(t *testing.T) {
 		},
 	}
 
-	test_with_input[uint64](t, inputs)
+	testWithInput[uint64](t, inputs)
 }
 
 func TestDisjointRange(t *testing.T) {
@@ -163,5 +163,5 @@ func TestDisjointRange(t *testing.T) {
 		},
 	}
 
-	test_with_input[int16](t, inputs)
+	testWithInput[int16](t, inputs)
 }

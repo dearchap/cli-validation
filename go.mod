@@ -1,4 +1,4 @@
-module github.com/dearchap/cli-validation
+module github.com/urfave/cli-validation
 
 go 1.19
 
