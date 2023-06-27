@@ -26,7 +26,6 @@ func testWithInput[T any](t *testing.T, tcases []testcase[T]) {
 		})
 	}
 }
-
 func TestMin(t *testing.T) {
 
 	inputs := []testcase[int]{
@@ -50,7 +49,6 @@ func TestMin(t *testing.T) {
 
 	testWithInput[int](t, inputs)
 }
-
 func TestMax(t *testing.T) {
 
 	inputs := []testcase[float64]{
@@ -74,7 +72,6 @@ func TestMax(t *testing.T) {
 
 	testWithInput[float64](t, inputs)
 }
-
 func TestRange(t *testing.T) {
 
 	inputs := []testcase[uint64]{
@@ -109,7 +106,6 @@ func TestRange(t *testing.T) {
 
 	testWithInput[uint64](t, inputs)
 }
-
 func TestDisjointRange(t *testing.T) {
 
 	inputs := []testcase[int16]{
