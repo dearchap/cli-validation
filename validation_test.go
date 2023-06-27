@@ -161,3 +161,57 @@ func TestDisjointRange(t *testing.T) {
 
 	testWithInput[int16](t, inputs)
 }
+func TestEnum(t *testing.T) {
+
+	inputs := []testcase[string]{
+		{
+			name:  "valid value for enum - 1",
+			f:     Enum[string]("hello", "bar", "foo"),
+			input: "hello",
+		},
+		{
+			name:  "valid value for enum - 2",
+			f:     Enum[string]("hello", "bar", "foo"),
+			input: "bar",
+		},
+		{
+			name:        "invalid value for enum",
+			f:           Enum[string]("hello", "bar", "foo"),
+			input:       "helloee",
+			errExpected: true,
+		},
+	}
+
+	testWithInput[string](t, inputs)
+}
+
+func TestRegex(t *testing.T) {
+	type myString string
+
+	inputs := []testcase[myString]{
+		{
+			name:  "valid value regex match - 1",
+			f:     Regex[myString]("foo[1-7].*y"),
+			input: "foo1y",
+		},
+		{
+			name:  "valid value regex match - 2",
+			f:     Regex[myString]("foo[1-7].*y"),
+			input: "foo1ttthsyy",
+		},
+		{
+			name:        "invalid value regex match - 1",
+			f:           Regex[myString]("foo[1-7].*y"),
+			input:       "fooy",
+			errExpected: true,
+		},
+		{
+			name:        "invalid value regex match - 2",
+			f:           Regex[myString]("foo[1-7].*y"),
+			input:       "fooOy",
+			errExpected: true,
+		},
+	}
+
+	testWithInput[myString](t, inputs)
+}

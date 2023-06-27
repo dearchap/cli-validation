@@ -2,6 +2,7 @@ package validation
 
 import (
 	"fmt"
+	"regexp"
 )
 
 type Signed interface {
@@ -84,4 +85,28 @@ func Max[T Ordered](c T) func(T) error {
 // the checked value
 func RangeInclusive[T Ordered](a, b T) func(T) error {
 	return ValidationChainAll[T](Min[T](a), Max[T](b))
+}
+
+// Enum lets the given value be checked against a given set of values
+func Enum[T comparable](values ...T) func(T) error {
+	return func(v T) error {
+		for _, value := range values {
+			if value == v {
+				return nil
+			}
+		}
+		return fmt.Errorf("%v not in %+v", v, values)
+	}
+}
+
+// Regex allows for pattern matching on string value fields
+func Regex[T ~string](pattern string) func(T) error {
+	return func(v T) error {
+		if r, err := regexp.Compile(pattern); err != nil {
+			return err
+		} else if !r.Match([]byte(v)) {
+			return fmt.Errorf("%v is not of pattern %s", v, pattern)
+		}
+		return nil
+	}
 }
